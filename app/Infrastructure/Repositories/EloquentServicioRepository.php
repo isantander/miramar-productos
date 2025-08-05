@@ -34,7 +34,6 @@ class EloquentServicioRepository implements ServicioRepositoryPort
         $datos = $servicio->toArray();
         unset($datos['id']); // Quitar ID para nuevo registro
         
-        // Crear con Eloquent
         $modelo = Servicio::create($datos);
         
         // Retornar Entity actualizada con ID
@@ -49,7 +48,6 @@ class EloquentServicioRepository implements ServicioRepositoryPort
         $datos = $servicio->toArray();
         unset($datos['id']); // No actualizar ID
         
-        // Actualizar con Eloquent
         $modelo->update($datos);
         
         // Retornar Entity actualizada
@@ -62,8 +60,8 @@ class EloquentServicioRepository implements ServicioRepositoryPort
         return $modelo->delete();
     }
 
-    public function existeCodigoServicio(string $codigo): bool
+    public function existeCodigo(string $codigo): bool
     {
-        return Servicio::where('codigo_servicio', $codigo)->exists();
+        return Servicio::where('codigo', $codigo)->exists();
     }
 }

@@ -12,17 +12,17 @@ class Servicio extends Model
     use SoftDeletes;
     
     protected $fillable = [
-        'codigo_servicio',
+        'codigo',
         'nombre',
         'descripcion',
         'destino',
         'fecha',
-        'precio',
+        'costo',
     ];
 
     protected $casts = [
         'fecha' => 'date',
-        'precio' => 'decimal:2',
+        'costo' => 'decimal:2',
     ];
 
     public function paquetes(): BelongsToMany

@@ -102,12 +102,12 @@ class ServicioHexagonalController extends Controller
     {
         $obj = new \stdClass();
         $obj->id = $entity->getId();
-        $obj->codigo_servicio = $entity->getCodigoServicio();
+        $obj->codigo = $entity->getCodigo();
         $obj->nombre = $entity->getNombre();
         $obj->descripcion = $entity->getDescripcion();
         $obj->destino = $entity->getDestino();
         $obj->fecha = $entity->getFecha();
-        $obj->precio = $entity->getPrecio();
+        $obj->costo = $entity->getCosto();
         
         return $obj;
     }

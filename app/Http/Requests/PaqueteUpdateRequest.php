@@ -24,6 +24,8 @@ class PaqueteUpdateRequest extends FormRequest
         return [
             'servicios' => 'required|array|min:2',
             'servicios.*' => 'required|integer|exists:servicios,id|distinct',
+            'nombre' => 'nullable|string|max:255',
+            'codigo' => 'nullable|string|unique:paquetes,codigo,' . $this->route('paquete'),
         ];
     }
 

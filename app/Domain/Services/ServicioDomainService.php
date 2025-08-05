@@ -32,7 +32,7 @@ class ServicioDomainService
         }
 
         // 3. Verificar unicidad del código (regla de negocio)
-        if ($this->repository->existeCodigoServicio($servicioEntity->getCodigoServicio())) {
+        if ($this->repository->existeCodigo($servicioEntity->getCodigo())) {
             throw new \DomainException('El código de servicio ya existe');
         }
 

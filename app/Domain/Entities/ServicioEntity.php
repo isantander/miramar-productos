@@ -6,12 +6,12 @@ class ServicioEntity
 {
     public function __construct(
         private ?int $id,
-        private string $codigoServicio,
+        private string $codigo,
         private string $nombre,
         private string $descripcion,
         private string $destino,
         private \DateTime $fecha,
-        private float $precio,
+        private float $costo,
         private ?\DateTime $createdAt = null,
         private ?\DateTime $updatedAt = null
     ) {}
@@ -22,9 +22,9 @@ class ServicioEntity
         return $this->id;
     }
 
-    public function getCodigoServicio(): string
+    public function getCodigo(): string
     {
-        return $this->codigoServicio;
+        return $this->codigo;
     }
 
     public function getNombre(): string
@@ -47,22 +47,24 @@ class ServicioEntity
         return $this->fecha;
     }
 
-    public function getPrecio(): float
+    public function getCosto(): float
     {
-        return $this->precio;
+        return $this->costo;
     }
+
 
     // factory metodos
     public static function create(array $data): self
     {
+        //dd($data);
         return new self(
-            id: null, // Nuevo servicio
-            codigoServicio: $data['codigo_servicio'],
+            id: null,
+            codigo: $data['codigo'],
             nombre: $data['nombre'],
             descripcion: $data['descripcion'],
             destino: $data['destino'],
             fecha: new \DateTime($data['fecha']),
-            precio: (float) $data['precio']
+            costo: (float) $data['costo']
         );
     }
 
@@ -70,12 +72,12 @@ class ServicioEntity
     {
         return new self(
             id: $model->id,
-            codigoServicio: $model->codigo_servicio,
+            codigo: $model->codigo,
             nombre: $model->nombre,
             descripcion: $model->descripcion,
             destino: $model->destino,
             fecha: $model->fecha->toDateTime(),
-            precio: (float) $model->precio,
+            costo: (float) $model->costo,
             createdAt: $model->created_at?->toDateTime(),
             updatedAt: $model->updated_at?->toDateTime()
         );
@@ -85,21 +87,21 @@ class ServicioEntity
     {
         return [
             'id' => $this->id,
-            'codigo_servicio' => $this->codigoServicio,
+            'codigo' => $this->codigo,
             'nombre' => $this->nombre,
             'descripcion' => $this->descripcion,
             'destino' => $this->destino,
             'fecha' => $this->fecha->format('Y-m-d'),
-            'precio' => $this->precio,
+            'costo' => $this->costo,
         ];
     }
 
-    // métodos de dominio (reglas de negocio)
+    // métodos de dominio - reglas de negocio
     public function esValido(): bool
     {
-        return !empty($this->codigoServicio) 
-            && !empty($this->nombre)
-            && $this->precio > 0;
+        return !empty($this->nombre)
+            && !empty($this->codigo)
+            && $this->costo > 0;
     }
 
 }

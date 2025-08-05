@@ -10,9 +10,21 @@ class Paquete extends Model
 {
     use SoftDeletes;
 
+    /**
+   * NOTA TÉCNICA: Se añadieron campos 'codigo' y 'nombre' para:
+   * 1. Facilitar identificación única de cada paquetes
+   * 2. Mejorar experiencia de usuario con los listados
+   * 3. Preparar el sistema para un futura expansión de funcionalidades
+   * 
+   * Aunque no están en las especificaciones originales del TP, mejoran la usabilidad
+   * sin afectar la lógica de negocio especificada.
+   */
     protected $fillable = [
+        'codigo',
+        'nombre',
     ];
 
+    
     protected $casts = [
         'precio_calculado' => 'decimal:2',
     ];
@@ -29,10 +41,10 @@ class Paquete extends Model
 
     public function getPrecioCalculadoAttribute(): string 
     {
-        $precioTotal = $this->servicios->sum('precio');
-        $precioConDescuento = $precioTotal * 0.9; // descuento del 10%
+        $costoTotal = $this->servicios->sum('costo');
+        $costoConDescuento = $costoTotal * 0.9; // descuento del 10%
 
-        return number_format($precioConDescuento, 2, '.', '');
+        return number_format($costoConDescuento, 2, '.', '');
     }
 
     public function scopeConServicios($query)
@@ -43,7 +55,7 @@ class Paquete extends Model
     public function scopePorRangoPrecio($query, $min, $max)
     {
         return $query->whereHas('servicios', function ($q) use ($min, $max) {
-            $q->havingRaw('SUM(precio) * 0.9 BETWEEN ? AND ?', [$min, $max]);
+            $q->havingRaw('SUM(costo) * 0.9 BETWEEN ? AND ?', [$min, $max]);
         });
     }
 

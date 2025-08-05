@@ -22,18 +22,28 @@ class ServicioUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'codigo_servicio' => [
-                'required',
-                'string',
-                'size:8', 
-                'unique:servicios,codigo_servicio,' . $this->route('servicio'), // excluye el codigo actual para poder actualizar el registro
-                'regex:/^[A-Z]{3}-\d{4}$/' // SRV-0001, TUR-0002
-            ],        
+            'codigo' => ['required',
+                        'string',
+                        'max:20',
+                        'unique:servicios,codigo,' . $this->route('servicio')                
+            ],
             'nombre' => 'required|string|max:255',
             'descripcion' => 'required|string',
             'destino' => 'required|string|max:100',
             'fecha' => 'required|date',
-            'precio' => 'required|numeric|min:0|max:999999.99',
+            'costo' => 'required|numeric|min:0|max:999999.99',
         ];
     }
+
+    protected function prepareForValidation()
+    {
+        /* 
+         Si bien la estandar  Rest indica que el verbo PUT debe tener esta estrucutra /api/servicios/{id} y body sin ID,
+         las especficaciones del TP son claras y las debo respetar, por eso valido que los ids coincidan.
+        */
+        if ($this->input('id') && $this->input('id') != $this->route('servicio')) {
+            abort(400, 'ID en URL y body no coinciden');
+        }
+    }
+
 }

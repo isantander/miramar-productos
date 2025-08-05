@@ -22,18 +22,17 @@ class ServicioStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'codigo_servicio' => [
+            'codigo' => [
                 'required',
                 'string',
-                'size:8', 
-                'unique:servicios',
-                'regex:/^[A-Z]{3}-\d{4}$/' // SRV-0001, TUR-0002
-            ],        
+                'max:20', 
+                'unique:servicios,codigo'
+            ],
             'nombre' => 'required|string|max:255',
             'descripcion' => 'required|string',
             'destino' => 'required|string|max:100',
             'fecha' => 'required|date',
-            'precio' => 'required|numeric|min:0|max:999999.99',
+            'costo' => 'required|numeric|min:0|max:999999.99',
         ];
     }
 }

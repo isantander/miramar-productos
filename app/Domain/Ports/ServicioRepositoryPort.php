@@ -34,5 +34,5 @@ interface ServicioRepositoryPort
     /**
      * Verificar si existe un código de servicio
      */
-    public function existeCodigoServicio(string $codigo): bool;
+    public function existeCodigo(string $codigo): bool;
 }

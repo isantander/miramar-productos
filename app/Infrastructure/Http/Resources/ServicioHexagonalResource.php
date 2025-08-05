@@ -11,12 +11,12 @@ class ServicioHexagonalResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'codigo_servicio' => $this->codigo_servicio,
+            'codigo' => $this->codigo,
             'nombre' => $this->nombre,
             'descripcion' => $this->descripcion,
             'destino' => $this->destino,
             'fecha' => $this->fecha->format('Y-m-d'),
-            'precio' => $this->precio,
+            'costo' => $this->costo,
         ];
     }
 }

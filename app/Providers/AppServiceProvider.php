@@ -8,6 +8,8 @@ use App\Services\PaqueteService;
 use App\Domain\Services\ServicioDomainService;
 use App\Domain\Ports\ServicioRepositoryPort;
 use App\Infrastructure\Repositories\EloquentServicioRepository;
+use App\Models\Servicio;
+use App\Observers\ServicioObserver;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -20,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
         // Bind Port → Adapter
         $this->app->bind(
             ServicioRepositoryPort::class,
-            EloquentServicioRepository::class // Acá se define el adapter concreto, pudiendo pasar a MongoDB, Redis, etc, sin tener que cambiar el código del dominio
+            EloquentServicioRepository::class // acá se define el adapter concreto, pudiendo pasar a MongoDB, Redis, etc, sin tener que cambiar el código del dominio
         );
         
 
@@ -42,6 +44,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+     //   Servicio::observe(ServicioObserver::class); 
+     /*
+     Lo había planeado para dar un foramto específico a los códigos de servicio, pero no estaba conteplado en el TP 
+     */
     }
 }
