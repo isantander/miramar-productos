@@ -10,18 +10,9 @@ class Paquete extends Model
 {
     use SoftDeletes;
 
-    /**
-   * NOTA TÉCNICA: Se añadieron campos 'codigo' y 'nombre' para:
-   * 1. Facilitar identificación única de cada paquetes
-   * 2. Mejorar experiencia de usuario con los listados
-   * 3. Preparar el sistema para un futura expansión de funcionalidades
-   * 
-   * Aunque no están en las especificaciones originales del TP, mejoran la usabilidad
-   * sin afectar la lógica de negocio especificada.
-   */
     protected $fillable = [
-        'codigo',
-        'nombre',
+        // Los paquetes según PDF solo requieren lista de IDs de servicios
+        // No tienen campos adicionales requeridos
     ];
 
     

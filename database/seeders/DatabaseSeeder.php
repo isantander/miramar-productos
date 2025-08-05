@@ -13,11 +13,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Primero crear servicios, luego paquetes (que dependen de servicios)
+        $this->call([
+            ServicioSeeder::class,
+            PaqueteSeeder::class,
         ]);
+
+        $this->command->info('✅ Microservicio de productos poblado exitosamente');
+        $this->command->info('📊 Servicios creados: 11 (3 traslados + 6 hoteles + 2 excursiones)');
+        $this->command->info('📦 Paquetes creados: 7 (6 destinos específicos + 1 multi-destino)');
     }
 }
