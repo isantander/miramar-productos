@@ -12,6 +12,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Registrar middlewares personalizados
+        $middleware->alias([
+            'api.key' => \App\Http\Middleware\ApiKeyMiddleware::class,
+            'internal.service' => \App\Http\Middleware\InternalServiceMiddleware::class,
+        ]);
+
         $middleware->group('api', [
             'throttle:60,1', // rate limit 
             \Illuminate\Routing\Middleware\SubstituteBindings::class,

@@ -35,4 +35,16 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Internal Services Authentication
+    |--------------------------------------------------------------------------
+    | Tokens para comunicación segura entre microservicios
+    */
+    'internal' => [
+        'productos_token' => env('INTERNAL_PRODUCTOS_TOKEN', 'productos_internal_secret_token_2025'),
+        'ventas_token' => env('INTERNAL_VENTAS_TOKEN', 'ventas_internal_secret_token_2025'),
+        'gateway_token' => env('INTERNAL_GATEWAY_TOKEN', 'gateway_internal_secret_token_2025'),
+    ],
+
 ];
