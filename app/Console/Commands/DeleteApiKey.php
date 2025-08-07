@@ -46,7 +46,7 @@ class DeleteApiKey extends Command
         // Eliminar
         $apiKey->delete();
 
-        $this->info("🗑️  API Key eliminada exitosamente");
+        $this->info("API Key eliminada exitosamente");
         $this->newLine();
         
         $this->table(['Campo', 'Valor'], [
@@ -67,7 +67,7 @@ class DeleteApiKey extends Command
 
     private function showApiKeyToDelete(ApiKey $apiKey): void
     {
-        $this->warn("⚠️  Está a punto de ELIMINAR la siguiente API Key:");
+        $this->warn("Está a punto de ELIMINAR la siguiente API Key:");
         $this->newLine();
 
         $status = $apiKey->is_active ? '<fg=green>✅ Activa</>' : '<fg=red>❌ Inactiva</>';
@@ -96,7 +96,7 @@ class DeleteApiKey extends Command
     {
         // Advertencias específicas por tipo
         if ($apiKey->type === 'internal') {
-            $this->error("🚨 ADVERTENCIA: Esta es una API Key INTERNA");
+            $this->error("ADVERTENCIA: Esta es una API Key INTERNA");
             $this->error("   La eliminación puede afectar la comunicación entre microservicios");
             $this->newLine();
             
@@ -106,12 +106,12 @@ class DeleteApiKey extends Command
         }
 
         if ($apiKey->is_active) {
-            $this->warn("⚠️  Esta API Key está ACTIVA y puede estar en uso");
+            $this->warn("Esta API Key está ACTIVA y puede estar en uso");
             $this->newLine();
         }
 
         if ($apiKey->total_requests > 0) {
-            $this->info("📊 Esta API Key ha procesado " . number_format($apiKey->total_requests) . " requests");
+            $this->info("Esta API Key ha procesado " . number_format($apiKey->total_requests) . " requests");
             $this->newLine();
         }
 

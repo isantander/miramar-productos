@@ -50,10 +50,10 @@ class GenerateApiKey extends Command
             );
 
             // Mostrar información
-            $this->info("✅ API Key creada exitosamente!");
+            $this->info("API Key creada exitosamente!");
             $this->newLine();
             
-            $this->line("📋 <options=bold>Detalles de la API Key:</>");
+            $this->line("<options=bold>Detalles de la API Key:</>");
             $this->table(['Campo', 'Valor'], [
                 ['ID', $apiKey->id],
                 ['Nombre', $apiKey->name],
@@ -65,16 +65,16 @@ class GenerateApiKey extends Command
             ]);
 
             $this->newLine();
-            $this->line("🔑 <options=bold>API Key (GUARDA ESTO - NO SE MOSTRARÁ NUEVAMENTE):</>");
+            $this->line("<options=bold>API Key (GUARDA ESTO - NO SE MOSTRARÁ NUEVAMENTE):</>");
             $this->line("<fg=yellow;options=bold>{$apiKey->raw_key}</>");
             
             $this->newLine();
-            $this->line("📡 <options=bold>Uso en requests:</>");
+            $this->line("<options=bold>Uso en requests:</>");
             $this->line("<fg=cyan>curl -H \"X-API-Key: {$apiKey->raw_key}\" https://api.miramar.com/endpoint</>");
 
             if ($type === 'internal') {
                 $this->newLine();
-                $this->warn("⚠️  Esta es una API Key INTERNA - úsala solo para comunicación entre microservicios");
+                $this->warn("Esta es una API Key INTERNA - úsala solo para comunicación entre microservicios");
             }
 
             return 0;

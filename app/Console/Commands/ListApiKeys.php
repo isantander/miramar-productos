@@ -53,7 +53,7 @@ class ListApiKeys extends Command
             return 0;
         }
 
-        $this->info("📋 API Keys encontradas: " . $apiKeys->count());
+        $this->info("API Keys encontradas: " . $apiKeys->count());
         $this->newLine();
 
         // Preparar datos para la tabla
@@ -101,7 +101,7 @@ class ListApiKeys extends Command
         $inactive = $apiKeys->where('is_active', false)->count();
         $totalRequests = $apiKeys->sum('total_requests');
 
-        $this->line("📊 <options=bold>Estadísticas:</>");
+        $this->line("<options=bold>Estadísticas:</>");
         $this->table(['Métrica', 'Valor'], [
             ['Total API Keys', $apiKeys->count()],
             ['Activas', "<fg=green>{$active}</>"],

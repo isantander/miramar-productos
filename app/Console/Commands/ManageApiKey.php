@@ -41,12 +41,12 @@ class ManageApiKey extends Command
     private function enableApiKey(ApiKey $apiKey): int
     {
         if ($apiKey->is_active) {
-            $this->warn("⚠️  La API Key '{$apiKey->name}' ya está activa");
+            $this->warn("La API Key '{$apiKey->name}' ya está activa");
             return 0;
         }
 
         $apiKey->update(['is_active' => true]);
-        $this->info("✅ API Key '{$apiKey->name}' habilitada exitosamente");
+        $this->info("API Key '{$apiKey->name}' habilitada exitosamente");
         
         $this->showBasicInfo($apiKey);
         return 0;
@@ -55,20 +55,20 @@ class ManageApiKey extends Command
     private function disableApiKey(ApiKey $apiKey): int
     {
         if (!$apiKey->is_active) {
-            $this->warn("⚠️  La API Key '{$apiKey->name}' ya está inactiva");
+            $this->warn("La API Key '{$apiKey->name}' ya está inactiva");
             return 0;
         }
 
         // Confirmar deshabilitación para keys internas
         if ($apiKey->type === 'internal') {
-            if (!$this->confirm("⚠️  Esta es una API Key INTERNA. ¿Está seguro de deshabilitarla?")) {
+            if (!$this->confirm("Esta es una API Key INTERNA. ¿Está seguro de deshabilitarla?")) {
                 $this->info("Operación cancelada");
                 return 0;
             }
         }
 
         $apiKey->update(['is_active' => false]);
-        $this->info("🔒 API Key '{$apiKey->name}' deshabilitada exitosamente");
+        $this->info("API Key '{$apiKey->name}' deshabilitada exitosamente");
         
         if ($apiKey->type === 'internal') {
             $this->error("❗ IMPORTANTE: La comunicación entre microservicios puede verse afectada");
@@ -80,7 +80,7 @@ class ManageApiKey extends Command
 
     private function showApiKeyInfo(ApiKey $apiKey): int
     {
-        $this->line("🔑 <options=bold>Información de API Key:</>");
+        $this->line("<options=bold>Información de API Key:</>");
         $this->newLine();
 
         $status = $apiKey->is_active ? '<fg=green>✅ Activa</>' : '<fg=red>❌ Inactiva</>';
@@ -108,21 +108,21 @@ class ManageApiKey extends Command
         // Endpoints permitidos
         if (!empty($apiKey->allowed_endpoints)) {
             $this->newLine();
-            $this->line("🎯 <options=bold>Endpoints Permitidos:</>");
+            $this->line("<options=bold>Endpoints Permitidos:</>");
             foreach ($apiKey->allowed_endpoints as $endpoint) {
-                $this->line("  • {$endpoint}");
+                $this->line("  - {$endpoint}");
             }
         } else {
             $this->newLine();
-            $this->line("🌐 <fg=green>Acceso a todos los endpoints</>");
+            $this->line("<fg=green>Acceso a todos los endpoints</>");
         }
 
         // Metadata
         if (!empty($apiKey->metadata)) {
             $this->newLine();
-            $this->line("📋 <options=bold>Metadata:</>");
+            $this->line("<options=bold>Metadata:</>");
             foreach ($apiKey->metadata as $key => $value) {
-                $this->line("  • {$key}: {$value}");
+                $this->line("  - {$key}: {$value}");
             }
         }
 
@@ -160,8 +160,8 @@ class ManageApiKey extends Command
             default => 'green'
         };
 
-        $this->line("⏱️  <options=bold>Rate Limit Actual (este minuto):</>");
-        $this->line("  • Requests usados: <fg={$color}>{$currentRequests}/{$apiKey->rate_limit_per_minute}</>");
-        $this->line("  • Requests restantes: <fg={$color}>{$remaining}</>");
+        $this->line("<options=bold>Rate Limit Actual (este minuto):</>");
+        $this->line("  - Requests usados: <fg={$color}>{$currentRequests}/{$apiKey->rate_limit_per_minute}</>");
+        $this->line("  - Requests restantes: <fg={$color}>{$remaining}</>");
     }
 }
